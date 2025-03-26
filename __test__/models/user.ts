@@ -1,4 +1,4 @@
-import User from "../../../lib/db/models/user";
+import User from "../../lib/db/models/user";
 
 describe("User Model", () => {
     it("should create a user successfully", async () => {

@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import User from "../../../lib/db/models/user";
 import UserModelInterface from "../../../lib/db/interfaces/user";
 import connectDB from '../../../lib/db/client';
-import { Logger } from "@/utils/logger";
-import DB from "@/lib/db/db";
+import { Logger } from "../../../utils/logger";
+import DB from "../../../lib/db/db";
 import { APIResponse } from '../../../lib/server/api_response';
 import { StatusCode } from "@/entities/http_status";
 
