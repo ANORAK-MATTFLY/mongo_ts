@@ -1,0 +1,26 @@
+services:
+  nextjs:
+    build: .
+    container_name: next_app
+    ports:
+      - "3000:3000"
+    command: ["bun", "dev"]
+    volumes:
+      - .:/app
+      - /app/node_modules # Prevents overwriting node_modules
+    depends_on:
+      - mongodb
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongodb:27017/mongoTs
+
+  mongodb:
+    image: mongo:5.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:

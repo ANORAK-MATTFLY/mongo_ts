@@ -27,13 +27,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
 
-    try {
-        await connectDB();
-    } catch (e: any) {
-        failed.message = 'Internal server error';
-        Logger.logError(e);
-        return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(failed);
-    }
+    // try {
+    //     await connectDB();
+    // } catch (e: any) {
+    //     failed.message = 'Internal server error';
+    //     Logger.logError(e);
+    //     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(failed);
+    // }
 
 
     try {

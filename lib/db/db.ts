@@ -18,7 +18,9 @@ const finOne = async <T>(criteria: string | number, model: Model<T>): Promise<T 
 
 const create = async <T, K>(document: K | number, model: Model<T>): Promise<T | null> => {
     try {
+        // { writeConcern: { w: 1 } }
         const result = await model.create(document);
+
         return result;
     } catch (e: any) {
         Logger.logError(e);

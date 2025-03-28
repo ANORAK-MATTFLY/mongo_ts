@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun dev",
+    "dev": "bun x next dev -H 0.0.0.0",
+    "run": "bun run --watch user.ts",
     "build": "bun build",
     "start": "bun start",
-    "test": "vitest"
+    "test": "bun test"
   },
   "dependencies": {
     "@geist-ui/react": "^2.2.5",
@@ -79,6 +80,7 @@
     "react-icons": "^5.4.0",
     "react-markdown": "^9.0.1",
     "react-toastify": "^11.0.2",
+    "redis": "^4.7.0",
     "rehype": "^13.0.2",
     "rehype-highlight": "^7.0.1",
     "rehype-prism-plus": "^2.0.0",
@@ -95,6 +97,7 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@svgr/webpack": "^8.1.0",
+    "@types/bun": "^1.2.8",
     "@types/jest": "^29.5.14",
     "@types/mongoose": "^5.11.97",
     "@types/node": "20.5.7",

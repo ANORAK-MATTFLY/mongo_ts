@@ -19,11 +19,14 @@ const retrieveCachedConnection = async (): Promise<mongoose.Connection | null> =
 
 const initConnection = async (): Promise<boolean> => {
     try {
+        const dbURL = "mongodb://localhost:27017/";
+        const localURL = "mongodb://mongodb:27017/";
         if (!cached.connection) {
             cached.connection = mongoose
-                .connect(MONGO_URI, {
-                    dbName: DB_NAME, // Optional: specify DB name
-                    bufferCommands: false,
+                .connect(dbURL, {
+
+                    dbName: "mongoTs", // Optional: specify DB name
+                    // bufferCommands: false,
                 })
                 .then((mongooseInstance) => mongooseInstance.connection);
         }
@@ -33,7 +36,11 @@ const initConnection = async (): Promise<boolean> => {
         return false;
     }
 }
-
+// await mongoose
+//                     .connect("mongodb+srv://ben:fkBa8koAe5UWS9jL@cluster0.ojnan.mongodb.net/mongoTs?retryWrites=true&w=majority", {
+//                         // dbName: DB_NAME, // Optional: specify DB name
+//                         // bufferCommands: false,
+//                     });
 export default async function DbConnect(): Promise<mongoose.Connection | null> {
     const existingConnection = await retrieveCachedConnection();
     if (existingConnection) {
