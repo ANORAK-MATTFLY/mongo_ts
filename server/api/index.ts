@@ -1,10 +1,9 @@
 import { serve } from "bun";
 import { readdirSync } from "fs";
 import { join } from "path";
-import connectDB from "../lib/db/client";
-import { connectRedis, disconnectRedis, redisClient } from '../lib/db/cache_client'; // Adjust path
-import mongoose from "mongoose";
-import { Logger } from "@/utils/logger";
+import connectDB from "../../lib/db/client";
+import { connectRedis, redisClient } from '../../lib/db/cache_client'; // Adjust path
+
 
 
 
@@ -13,13 +12,13 @@ try {
     await connectRedis();
     // Optional: Test connection
     const pong = await redisClient.ping();
-    Logger.log(`Redis ping response: ${pong}`); // Should log PONG
+    console.log(`Redis ping response: ${pong}`); // Should log PONG
 
     // You might want to run other startup tasks AFTER Redis connects
     // e.g., initializing caches
 
 } catch (error: any) {
-    Logger.logError(`🚨 Failed to connect to Redis during startup. Exiting: ${error}`);
+    console.error(`🚨 Failed to connect to Redis during startup. Exiting: ${error}`);
     process.exit(1); // Exit if Redis connection is critical
 }
 
@@ -29,7 +28,7 @@ const routes: Record<string, (req: Request) => Response | Promise<Response>> = {
 
 // Dynamically import all routes
 // const routesDir = "./routes";
-const routesDir = join(__dirname, "v1/routes");  // Ensure correct absolute path
+const routesDir = join(__dirname, "v1/");  // Ensure correct absolute path
 const paths = readdirSync(routesDir);
 for (const file of paths) {
     if (file.endsWith(".ts")) {

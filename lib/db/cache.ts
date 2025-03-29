@@ -12,8 +12,8 @@ const get = async (cachedKey: string): Promise<string | null> => {
 
 
 
-const set = async (cacheKey: string, expiresIn: number): Promise<string | null> => {
-    const result = await redisClient.set(cacheKey, JSON.stringify(cacheKey), {
+const set = async <T>(cacheKey: string, value: T, expiresIn: number): Promise<string | null> => {
+    const result = await redisClient.set(cacheKey, JSON.stringify(value), {
         EX: expiresIn // EX = seconds
         // NX: true // Optional: Set only if key does not exist
         // XX: true // Optional: Set only if key exists
@@ -56,10 +56,17 @@ const getAllValues = async (): Promise<(string | null)[]> => {
     const values = await Promise.all(keys.map(key => redisClient.get(key)));
     return values;
 }
+const fromCacheToType = async <T>(fn: Promise<string | null>): Promise<T | null> => {
+    const cachedValue = await fn;
+    if (cachedValue) {
+        const result = JSON.parse(cachedValue) as T;
+        return result;
+    }
+    return null;
+}
 
 
-
-const Cache: CacheInterface = {
+const LocalCacheDB: CacheInterface = {
     get,
     set,
     del,
@@ -70,6 +77,7 @@ const Cache: CacheInterface = {
     getAll,
     getAllKeys,
     getAllValues,
+    fromCacheToType
 } as const;
 
-export default Cache;
+export default LocalCacheDB;
